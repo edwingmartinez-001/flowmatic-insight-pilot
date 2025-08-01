@@ -15,8 +15,9 @@ const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
   const [passwordError, setPasswordError] = useState('');
+  const [isLoginMode, setIsLoginMode] = useState(true);
 
-  const { login, loginWithGoogle } = useAuth();
+  const { login, register, loginWithGoogle } = useAuth();
   const { toast } = useToast();
 
   const validateEmail = (email: string) => {
@@ -64,22 +65,27 @@ const LoginForm = () => {
 
     setLoading(true);
     try {
-      const { error } = await login(email, password);
+      const { error } = isLoginMode 
+        ? await login(email, password)
+        : await register(email, password);
+        
       if (error) {
         toast({
-          title: "Error de autenticación",
-          description: error.message,
+          title: isLoginMode ? "Error de autenticación" : "Error de registro",
+          description: error.message || "Ocurrió un error inesperado",
           variant: "destructive"
         });
       } else {
         toast({
-          title: "¡Bienvenido!",
-          description: "Has iniciado sesión correctamente",
+          title: isLoginMode ? "¡Bienvenido!" : "¡Cuenta creada!",
+          description: isLoginMode 
+            ? "Has iniciado sesión correctamente"
+            : "Tu cuenta ha sido creada exitosamente",
         });
       }
     } catch (error: any) {
       toast({
-        title: "Error de autenticación",
+        title: isLoginMode ? "Error de autenticación" : "Error de registro",
         description: "Ocurrió un error inesperado",
         variant: "destructive"
       });
@@ -111,7 +117,9 @@ const LoginForm = () => {
         {/* Login Card */}
         <Card className="bg-white/95 backdrop-blur-lg shadow-hover border-0">
           <CardHeader className="text-center pb-6">
-            <h2 className="text-2xl font-semibold text-foreground">Iniciar Sesión</h2>
+            <h2 className="text-2xl font-semibold text-foreground">
+              {isLoginMode ? 'Iniciar Sesión' : 'Crear Cuenta'}
+            </h2>
           </CardHeader>
           
           <CardContent>
@@ -186,7 +194,7 @@ const LoginForm = () => {
                     <span>Accediendo...</span>
                   </div>
                 ) : (
-                  'Acceder'
+                  isLoginMode ? 'Acceder' : 'Crear Cuenta'
                 )}
               </Button>
 
@@ -235,6 +243,20 @@ const LoginForm = () => {
                 </svg>
                 Continuar con Google
               </Button>
+
+              {/* Toggle between login and register */}
+              <div className="text-center mt-4">
+                <button
+                  type="button"
+                  onClick={() => setIsLoginMode(!isLoginMode)}
+                  className="text-sm text-primary hover:underline"
+                >
+                  {isLoginMode 
+                    ? '¿No tienes cuenta? Créate una' 
+                    : '¿Ya tienes cuenta? Inicia sesión'
+                  }
+                </button>
+              </div>
             </form>
           </CardContent>
         </Card>
