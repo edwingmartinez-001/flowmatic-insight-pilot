@@ -44,6 +44,14 @@ export default {
 					DEFAULT: 'hsl(var(--accent))',
 					foreground: 'hsl(var(--accent-foreground))'
 				},
+				success: {
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))'
+				},
+				warning: {
+					DEFAULT: 'hsl(var(--warning))',
+					foreground: 'hsl(var(--warning-foreground))'
+				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
 					foreground: 'hsl(var(--popover-foreground))'
@@ -61,6 +69,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Flowmatic color palette
+				flowmatic: {
+					'dark-blue': 'hsl(var(--flowmatic-dark-blue))',
+					'medium-blue': 'hsl(var(--flowmatic-medium-blue))',
+					'teal': 'hsl(var(--flowmatic-teal))',
+					'green': 'hsl(var(--flowmatic-green))'
 				}
 			},
 			borderRadius: {
@@ -88,7 +103,22 @@ export default {
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 3s ease-in-out infinite',
+				'glow': 'glow 2s ease-in-out infinite',
+				'shimmer': 'shimmer 2s linear infinite',
+				'fade-in': 'fadeIn 0.3s ease-out',
+				'slide-up': 'slideUp 0.3s ease-out'
+			},
+			backgroundImage: {
+				'flowmatic-gradient': 'var(--flowmatic-gradient)',
+				'flowmatic-hero': 'var(--flowmatic-hero-gradient)',
+				'flowmatic-card': 'var(--flowmatic-card-gradient)'
+			},
+			boxShadow: {
+				'flowmatic': 'var(--shadow-flowmatic)',
+				'hover': 'var(--shadow-hover)',
+				'glow': 'var(--shadow-glow)'
 			}
 		}
 	},
